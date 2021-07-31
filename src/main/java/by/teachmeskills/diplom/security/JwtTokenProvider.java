@@ -1,6 +1,7 @@
 package by.teachmeskills.diplom.security;
 
 import by.teachmeskills.diplom.security.excepton.JwtAuthenticationException;
+import by.teachmeskills.diplom.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,7 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long validityMilliseconds;
 
-    public JwtTokenProvider(@Qualifier("userService") UserDetailsService userDetailsService) {
+    public JwtTokenProvider(UserDetailsServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -69,7 +70,7 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest request){
+    public String resolveToken(HttpServletRequest request) {
         return request.getHeader(authorizationHeader);
     }
 }

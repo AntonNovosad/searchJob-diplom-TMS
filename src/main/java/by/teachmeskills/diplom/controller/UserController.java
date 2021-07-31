@@ -1,47 +1,23 @@
 package by.teachmeskills.diplom.controller;
 
-import by.teachmeskills.diplom.entity.User;
-import by.teachmeskills.diplom.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import by.teachmeskills.diplom.service.UserDetailsServiceImpl;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/api/v1/auth")
+@RestController
+@RequestMapping("/api/v1/home")
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    @GetMapping("/login")
-    public String login(){
-       return "login";
+    @GetMapping("/users")
+    public ResponseEntity<?> getAll() {
+        return new ResponseEntity<>(userDetailsService.allUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/success")
-    public String getSuccessPage() {
-        return "success";
-    }
-
-//    @GetMapping("/reg")
-//    public ModelAndView registration(Model model){
-//        model.addAttribute("user", new User());
-//        return new ModelAndView("reg");
-//    }
-//
-//    @PostMapping("/reg")
-//    public ModelAndView registration(@ModelAttribute("user") User user, Model model) {
-//        try {
-//            userService.saveUser(user);
-//            return new ModelAndView("auth");
-//        } catch (RuntimeException e) {
-//            model.addAttribute("message", e.getMessage());
-//            return new ModelAndView("reg");
-//        }
-//    }
 }

@@ -1,6 +1,7 @@
 package by.teachmeskills.diplom.configuration;
 
 import by.teachmeskills.diplom.security.JwtConfigurer;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,17 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JwtConfigurer jwtConfigurer;
-
-    public SecurityConfiguration(JwtConfigurer jwtConfigurer) {
-        this.jwtConfigurer = jwtConfigurer;
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/v1/auth/login").permitAll()
+                .antMatchers("/api/v1/home/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected BCryptPasswordEncoder bCryptPasswordEncoder() {
+    protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 }
