@@ -1,7 +1,7 @@
 package by.teachmeskills.diplom.controller;
 
 import by.teachmeskills.diplom.entity.User;
-import by.teachmeskills.diplom.entity.dto.AuthenticationRequestDto;
+import by.teachmeskills.diplom.dto.AuthenticationRequestDto;
 import by.teachmeskills.diplom.repository.UserRepository;
 import by.teachmeskills.diplom.security.JwtTokenProvider;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
