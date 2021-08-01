@@ -1,4 +1,4 @@
-package by.teachmeskills.diplom.entity.dto;
+package by.teachmeskills.diplom.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
