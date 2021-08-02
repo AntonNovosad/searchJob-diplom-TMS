@@ -32,6 +32,8 @@ public class User implements UserDetails {
     private String lastName;
     @Column(name = "user_phone")
     private String phone;
+    @OneToOne
+    private Resume resume;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "user_roles")
     private Role role;

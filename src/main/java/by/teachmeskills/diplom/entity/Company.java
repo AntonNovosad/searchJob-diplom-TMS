@@ -5,19 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Data
-@AllArgsConstructor @NoArgsConstructor
-public class Vacancy {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private String requirements;
-    private String abilities;
-    private String proposition;
-    @OneToMany
-    private Set<Resume> resumeList;
+    private String email;
+    private String password;
+    private String phone;
+    private String aboutUs;
+    private Status status;
 }
