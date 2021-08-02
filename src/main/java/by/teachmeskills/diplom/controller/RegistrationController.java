@@ -33,7 +33,6 @@ public class RegistrationController {
                             request.getFirstNameDto(),
                             request.getLastNameDto(),
                             request.getPhoneDto(),
-                            null,
                             Role.USER,
                             Status.ACTIVE)
             ), HttpStatus.OK);

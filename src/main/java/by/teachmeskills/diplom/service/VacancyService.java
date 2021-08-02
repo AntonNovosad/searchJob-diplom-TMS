@@ -30,15 +30,16 @@ public class VacancyService {
         return vacancyRepository.save(vacancy);
     }
 
-    public void setUserResume(long vacancyId, String email) {
-        if (vacancyRepository.existsById(vacancyId)) {
-            Vacancy vacancy = vacancyRepository.getById(vacancyId);
-            Set<Resume> resumeSet = vacancy.getResumeList();
-            resumeSet.add(userRepository.findByEmail(email).get().getResume());
-        } else {
-            throw new RuntimeException("Vacancy not exist");
-        }
-    }
+//TODO
+//    public void setUserResume(long vacancyId, String email) {
+//        if (vacancyRepository.existsById(vacancyId)) {
+//            Vacancy vacancy = vacancyRepository.getById(vacancyId);
+//            Set<Resume> resumeSet = vacancy.getResumeList();
+//            resumeSet.add(userRepository.findByEmail(email).get().getResume());
+//        } else {
+//            throw new RuntimeException("Vacancy not exist");
+//        }
+//    }
 
     public List<Vacancy> getAll() {
         return vacancyRepository.findAll();
