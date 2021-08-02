@@ -1,12 +1,12 @@
 package by.teachmeskills.diplom.repository;
 
-import by.teachmeskills.diplom.entity.Vacancy;
+import by.teachmeskills.diplom.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
-    Optional<Vacancy> findByName(String name);
+public interface CompanyRepository extends JpaRepository<Company, Long> {
+    Optional<Company> findByEmail(String email);
 }

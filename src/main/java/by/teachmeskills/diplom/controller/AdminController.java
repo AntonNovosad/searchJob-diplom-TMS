@@ -2,12 +2,11 @@ package by.teachmeskills.diplom.controller;
 
 import by.teachmeskills.diplom.entity.Role;
 import by.teachmeskills.diplom.entity.Status;
-import by.teachmeskills.diplom.entity.User;
+import by.teachmeskills.diplom.service.AdminService;
 import by.teachmeskills.diplom.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AdminController {
 
+    private final AdminService adminService;
     private final UserDetailsServiceImpl userDetailsService;
 
     @GetMapping("/users")
@@ -23,24 +23,24 @@ public class AdminController {
         return new ResponseEntity<>(userDetailsService.getAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/update/{firstName}/{lastName}")
-    public void update(@PathVariable String firstName, @PathVariable String lastName, @RequestBody User user) {
-        userDetailsService.update(firstName, lastName, user);
+    @PutMapping("/update/{userId}")
+    public void update(@PathVariable long userId, String firstName, String lastName) {
+        userDetailsService.update(userId, firstName, lastName);
     }
 
-    @PutMapping("/update/{status}")
-    public void updateStatus(@PathVariable Status status, @RequestBody User user) {
-        userDetailsService.updateStatus(status, user);
+    @PutMapping("/update/{userId}/{status}")
+    public void updateStatus(@PathVariable long userId, @PathVariable Status status) {
+        adminService.updateStatus(userId, status);
     }
 
-    @PutMapping("update/{role}")
-    public void updateRole(@PathVariable Role role, @RequestBody User user) {
-        userDetailsService.updateRole(role, user);
+    @PutMapping("update/{userId}/{role}")
+    public void updateRole(@PathVariable long userId,@PathVariable Role role) {
+        adminService.updateRole(userId, role);
     }
 
-    @DeleteMapping("/{email}")
-    public ResponseEntity<?> delete(@PathVariable String email) {
-        if (userDetailsService.delete(email)) {
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<?> deleteUser(@PathVariable String email) {
+        if (adminService.deleteUser(email)) {
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

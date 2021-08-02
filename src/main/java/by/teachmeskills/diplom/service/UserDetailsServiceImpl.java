@@ -1,9 +1,7 @@
 package by.teachmeskills.diplom.service;
 
-import by.teachmeskills.diplom.entity.Role;
-import by.teachmeskills.diplom.entity.Status;
 import by.teachmeskills.diplom.entity.User;
-import by.teachmeskills.diplom.repository.CompanyRepository;
+import by.teachmeskills.diplom.repository.ResumeRepository;
 import by.teachmeskills.diplom.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
     private final UserRepository userRepository;
+    private final ResumeRepository resumeRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -47,41 +46,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public boolean delete(String email) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            User user = userRepository.findByEmail(email).get();
-            userRepository.delete(user);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void updateStatus(Status status, User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            user.setStatus(status);
-            userRepository.save(user);
-        } else {
-            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, user.getEmail()));
-        }
-    }
-
-    public void updateRole(Role role, User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            user.setRole(role);
-            userRepository.save(user);
-        } else {
-            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, user.getEmail()));
-        }
-    }
-
-    public void update(String firstName, String lastName, User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+    public void update(long id, String firstName, String lastName) {
+        if (userRepository.existsById(id)) {
+            User user = userRepository.getById(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             userRepository.save(user);
         } else {
-            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, user.getEmail()));
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, userRepository.getById(id).getEmail()));
         }
     }
 
