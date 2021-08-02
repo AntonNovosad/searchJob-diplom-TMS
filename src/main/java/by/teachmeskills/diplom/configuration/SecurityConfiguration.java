@@ -1,5 +1,6 @@
 package by.teachmeskills.diplom.configuration;
 
+import by.teachmeskills.diplom.entity.Role;
 import by.teachmeskills.diplom.security.JwtConfigurer;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/v1/home/**").permitAll()
+                .antMatchers("/api/v1/user/**").hasAuthority(Role.USER.name())
+                .antMatchers("/api/v1/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
