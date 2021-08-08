@@ -20,25 +20,23 @@ import java.util.Collections;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private long id;
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "user_phone")
+    @Column(name = "user_phone", unique = true, nullable = false)
     private String phone;
-//    @OneToOne
-//    private Resume resume;
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "user_roles")
+    @Column(name = "user_roles", nullable = false)
     private Role role;
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "user_status")
+    @Column(name = "user_status", nullable = false)
     private Status status;
 
     public User(@Size(min = 2) String email, @Size(min = 2) String password, String firstName, String lastName, String phone, Role role, Status status) {

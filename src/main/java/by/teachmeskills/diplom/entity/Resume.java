@@ -15,9 +15,9 @@ import javax.persistence.*;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private long id;
-    @Column(name = "name")
+    @Column(name = "resume_name", nullable = false)
     private String name;
     @Column(name = "work_experience")
     private String workExperience;
@@ -27,8 +27,8 @@ public class Resume {
     private String courses;
     @Column(name = "language")
     private String language;
-    @Column(name = "abilities")
+    @Column(name = "abilities", nullable = false)
     private String abilities;
-    @Column(name = "about_me")
+    @Column(name = "about_me", nullable = false)
     private String aboutMe;
 }
